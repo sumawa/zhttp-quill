@@ -30,7 +30,7 @@ object ZioApp1 extends App {
     val q = quote {
       persons.insert(lift(Person(101, "Alex", 45)))
     }
-    MyH2Context.run(q).onDataSource
+//    MyH2Context.run(q).onDataSource
 
     //    val people = quote {
     //      query[Person].filter(p => p.name == "Alex")
