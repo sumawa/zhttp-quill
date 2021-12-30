@@ -21,18 +21,8 @@ object PersonDb {
   object Ctx extends H2ZioJdbcContext(Literal)
   import Ctx._
 
-  val persons = quote {
-    querySchema[Person]("Person")
-  }
-  implicit val personInsertMeta = insertMeta[Person](_.id)
-
-  val people = quote {
-    query[Person]
-  }
-
-  val q = quote {
-    persons.insert(lift(Person(101, "Alex", 45)))
-  }
+  val persons = quote { querySchema[Person]("Person") }
+//  implicit val personInsertMeta = insertMeta[Person](_.id)
 
   // type alias to use for other layers
   type PersonDbEnv = Has[PersonDb.Service]
@@ -41,20 +31,34 @@ object PersonDb {
   trait Service {
     def insert(person: Person): Task[Long]
     def get(): Task[List[Person]]
+    def byName(name: String): Task[List[Person]]
   }
 
   // layer - service implementation
   val live: ZLayer[ZEnv, Nothing, PersonDbEnv] = ZLayer.succeed {
     new Service {
-      override def insert(person: Person): Task[Long] = for {
-          i <- Ctx.run(q).implicitDS
+      override def insert(person: Person): Task[Long] = {
+        val insertQuery = quote { persons.insert(lift(person)) }
+        for {
+          i <- Ctx.run(insertQuery).implicitDS
           _ <- Task.effect(println(s"iiii: $i"))
         } yield i
+      }
 
       override def get(): Task[List[Person]] = for {
-        ps <- Ctx.run(people).implicitDS
+        ps <- Ctx.run(persons).implicitDS
         _ <- Task.effect(println(s"persons $ps"))
       } yield ps
+
+      override def byName(name: String): Task[List[Person]] = {
+        val filterQuery = quote {
+          query[Person].filter(p => p.name == lift(name))
+        }
+        for {
+          ps <- Ctx.run(filterQuery).implicitDS
+          _ <- Task.effect(println(s"filtered persons $ps"))
+        } yield ps
+      }
     }
   }
 
@@ -64,4 +68,8 @@ object PersonDb {
 
   def get(): ZIO[PersonDbEnv,Throwable,List[Person]] =
     ZIO.accessM(_.get.get())
+
+  def byName(name: String): ZIO[PersonDbEnv,Throwable,List[Person]] =
+    ZIO.accessM(_.get.byName(name))
+
 }

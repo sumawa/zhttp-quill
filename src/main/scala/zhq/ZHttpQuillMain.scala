@@ -1,23 +1,32 @@
 package zhq
 
-import zhttp.http._
+import zhq.PersonDb.PersonDbEnv
 import zhttp.service.server.ServerChannelFactory
 import zhttp.service.{EventLoopGroup, Server}
 import zio._
 
+import java.util.UUID
 import scala.util.Try
 
 object ZHttpQuillMain extends App {
   // Set a port
   private val PORT = 8090
 
-  val personBackendLayer = PersonDb.live
+  val personBackendLayer: ZLayer[zio.ZEnv, Nothing, PersonDbEnv] =
+    PersonDb.live
+
+  import zhttp.http._
   private val app = Http.collectM[Request] {
     case Method.GET -> !! / "person" =>
       for {
-        i <- PersonDb.insert(Person(102, "Alice", 27))
+        dyn <- ZIO.effect(UUID.randomUUID().toString)
+        i <- PersonDb.insert(Person(102, dyn, 27))
         persons <- PersonDb.get()
       } yield (Response.text(s"Persons: $persons"))
+    case Method.GET -> !! / "user" / name  =>
+      for {
+        persons <- PersonDb.byName(name)
+      } yield (Response.text(s"Hello: $persons"))
   }.provideCustomLayer(personBackendLayer)
 
   private val server =
