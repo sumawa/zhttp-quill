@@ -13,7 +13,7 @@ Implemented a very basic zio-http / zio-quill example
   - Shows how to set up a server and zio-http endpoints
   - Just run via IDE or sbt console
 * [PersonDb](https://github.com/sumawa/zhttp-quill/blob/master/src/main/scala/zhq/PersonDb.scala)
-  - Shows how to set up a ZIO Server layer 
+  - Shows how to set up a ZIO Service layer 
   - It can be dependency injected and used like shown in the Main.
 * [application.conf for H2DB setup](https://github.com/sumawa/zhttp-quill/blob/master/src/main/resources/application.conf)
 * [h2-schema.sql](https://github.com/sumawa/zhttp-quill/blob/master/src/main/resources/sql/h2-schema.sql)
