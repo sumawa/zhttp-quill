@@ -16,7 +16,8 @@ object ZHttpQuillMain extends App {
     case Method.GET -> !! / "person"    =>
         for {
           i <- PersonDb.insert(Person(102, "Alice", 27))
-        } yield (Response.text("Done"))
+          persons <- PersonDb.get()
+        } yield (Response.text(s"Persons: $persons"))
   }.provideCustomLayer(personBackendLayer)
 
   private val server =
