@@ -2,10 +2,6 @@
 ###
 Implemented a very basic zio-http / zio-quill example
 
-Describe end points for 
-* adding dynamic user to H2DB. http://localhost:8090/person
-* getting user(s) from H2DB.   http://localhost:8090/user/generateduuid
-
 #### Libraries used / Dependencies
 * zio version "1.0.13"
 * zio-quill versin "3.8.0"
@@ -19,6 +15,10 @@ Describe end points for
 * [PersonDb](https://github.com/sumawa/zhttp-quill/blob/master/src/main/scala/zhq/PersonDb.scala)
   - Shows how to set up a ZIO Server layer 
   - It can be dependency injected and used like shown in the Main.
+
+Describe end points for 
+* adding dynamic user to H2DB. http://localhost:8090/person
+* getting user(s) from H2DB.   http://localhost:8090/user/generateduuid
 
 #### Example curl commands for testing
 Inject dynamic UUID data by firing this endpoint
