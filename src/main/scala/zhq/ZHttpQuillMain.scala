@@ -31,7 +31,6 @@ object ZHttpQuillMain extends App {
 
   private val server =
     Server.port(PORT) ++ // Setup port
-      Server.paranoidLeakDetection ++ // Paranoid leak detection (affects performance)
       Server.app(app) // Setup the Http app
 
   override def run(args: List[String]): URIO[zio.ZEnv, ExitCode] = {
