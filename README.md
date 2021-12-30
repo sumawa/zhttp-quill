@@ -4,7 +4,7 @@ Implemented a very basic zio-http / zio-quill example
 
 Describe end points for 
 * adding dynamic user to H2DB. http://localhost:8090/person
-* getting user(s) from H2DB.   http://localhost:8090/user/<uuid>
+* getting user(s) from H2DB.   http://localhost:8090/user/generateduuid
 
 #### Libraries used / Dependencies
 * zio version "1.0.13"
