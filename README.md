@@ -15,6 +15,8 @@ Implemented a very basic zio-http / zio-quill example
 * [PersonDb](https://github.com/sumawa/zhttp-quill/blob/master/src/main/scala/zhq/PersonDb.scala)
   - Shows how to set up a ZIO Server layer 
   - It can be dependency injected and used like shown in the Main.
+* [application.conf for H2DB setup](https://github.com/sumawa/zhttp-quill/blob/master/src/main/resources/application.conf)
+* [h2-schema.sql](https://github.com/sumawa/zhttp-quill/blob/master/src/main/resources/sql/h2-schema.sql)
 
 Describe end points for 
 * adding dynamic user to H2DB. http://localhost:8090/person
