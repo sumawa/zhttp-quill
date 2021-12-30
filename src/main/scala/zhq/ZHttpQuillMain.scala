@@ -14,7 +14,9 @@ object ZHttpQuillMain extends App {
   val personBackendLayer = PersonDb.live
   private val app = Http.collectM[Request] {
     case Method.GET -> !! / "person"    =>
-      PersonDb.insert(Person(102, "Alice", 27)).map(_ => Response.text("Done"))
+        for {
+          i <- PersonDb.insert(Person(102, "Alice", 27))
+        } yield (Response.text("Done"))
   }.provideCustomLayer(personBackendLayer)
 
   private val server =
