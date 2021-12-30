@@ -41,13 +41,13 @@ object PersonDb {
         val insertQuery = quote { persons.insert(lift(person)) }
         for {
           i <- Ctx.run(insertQuery).implicitDS
-          _ <- Task.effect(println(s"iiii: $i"))
+//          _ <- Task.effect(println(s"inserted person"))
         } yield i
       }
 
       override def get(): Task[List[Person]] = for {
         ps <- Ctx.run(persons).implicitDS
-        _ <- Task.effect(println(s"persons $ps"))
+//        _ <- Task.effect(println(s"persons $ps"))
       } yield ps
 
       override def byName(name: String): Task[List[Person]] = {
@@ -56,7 +56,7 @@ object PersonDb {
         }
         for {
           ps <- Ctx.run(filterQuery).implicitDS
-          _ <- Task.effect(println(s"filtered persons $ps"))
+//          _ <- Task.effect(println(s"filtered persons $ps"))
         } yield ps
       }
     }
