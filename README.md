@@ -19,8 +19,8 @@ Implemented a very basic zio-http / zio-quill example
 * [h2-schema.sql](https://github.com/sumawa/zhttp-quill/blob/master/src/main/resources/sql/h2-schema.sql)
 
 Describe end points for 
-* adding dynamic user to H2DB. http://localhost:8090/person
-* getting user(s) from H2DB.   http://localhost:8090/user/generateduuid
+* adding dynamic user to H2DB. POST http://localhost:8090/person
+* getting user(s) from H2DB.   GET  http://localhost:8090/user/generateduuid
 
 #### Build and run 
 - The sample application is built in the form of assembly and executed with run script
