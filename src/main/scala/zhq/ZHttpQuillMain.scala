@@ -17,17 +17,17 @@ object ZHttpQuillMain extends App {
 
   import zhttp.http._
   private val app = Http.collectM[Request] {
-    case Method.GET -> !! / "person" =>
+    case Method.POST -> !! / "person" =>
       for {
         dyn <- ZIO.effect(UUID.randomUUID().toString)
         i <- PersonDb.insert(Person(102, dyn, 27))
-        persons <- PersonDb.get()
+        persons <- PersonDb.getAll()
       } yield (Response.text(s"Persons: $persons"))
     case Method.GET -> !! / "user" / name  =>
       for {
         persons <- PersonDb.byName(name)
       } yield (Response.text(s"Hello: $persons"))
-  }.provideCustomLayer(personBackendLayer)
+  }
 
   private val server =
     Server.port(PORT) ++ // Setup port
@@ -37,6 +37,11 @@ object ZHttpQuillMain extends App {
     // Configure thread count using CLI
     val nThreads: Int = args.headOption.flatMap(x => Try(x.toInt).toOption).getOrElse(0)
 
+    // horizontally compose dependencies
+    val env = ServerChannelFactory.auto ++
+      EventLoopGroup.auto(nThreads) ++
+      personBackendLayer
+    
     // Create a new server
     server.make
       .use(_ =>
@@ -46,7 +51,8 @@ object ZHttpQuillMain extends App {
           // Ensures the server doesn't die after printing
           *> ZIO.never,
       )
-      .provideCustomLayer(ServerChannelFactory.auto ++ EventLoopGroup.auto(nThreads))
+      // inject dependencies
+      .provideCustomLayer(env)
       .exitCode
   }
 }

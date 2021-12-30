@@ -30,7 +30,7 @@ object PersonDb {
   // service definition
   trait Service {
     def insert(person: Person): Task[Long]
-    def get(): Task[List[Person]]
+    def getAll(): Task[List[Person]]
     def byName(name: String): Task[List[Person]]
   }
 
@@ -41,13 +41,11 @@ object PersonDb {
         val insertQuery = quote { persons.insert(lift(person)) }
         for {
           i <- Ctx.run(insertQuery).implicitDS
-//          _ <- Task.effect(println(s"inserted person"))
         } yield i
       }
 
-      override def get(): Task[List[Person]] = for {
+      override def getAll(): Task[List[Person]] = for {
         ps <- Ctx.run(persons).implicitDS
-//        _ <- Task.effect(println(s"persons $ps"))
       } yield ps
 
       override def byName(name: String): Task[List[Person]] = {
@@ -56,7 +54,6 @@ object PersonDb {
         }
         for {
           ps <- Ctx.run(filterQuery).implicitDS
-//          _ <- Task.effect(println(s"filtered persons $ps"))
         } yield ps
       }
     }
@@ -66,8 +63,8 @@ object PersonDb {
   def insert(person: Person): ZIO[PersonDbEnv, Throwable, Long] =
     ZIO.accessM(_.get.insert(person))
 
-  def get(): ZIO[PersonDbEnv,Throwable,List[Person]] =
-    ZIO.accessM(_.get.get())
+  def getAll(): ZIO[PersonDbEnv,Throwable,List[Person]] =
+    ZIO.accessM(_.get.getAll())
 
   def byName(name: String): ZIO[PersonDbEnv,Throwable,List[Person]] =
     ZIO.accessM(_.get.byName(name))
