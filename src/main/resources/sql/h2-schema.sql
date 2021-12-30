@@ -1,13 +1,14 @@
 CREATE TABLE IF NOT EXISTS Person(
-    name VARCHAR(255),
-    age int
-);
-
-CREATE TABLE IF NOT EXISTS Person1(
     id int,
     name VARCHAR(255),
     age int
 );
+
+--CREATE TABLE IF NOT EXISTS Person1(
+--    id int,
+--    name VARCHAR(255),
+--    age int
+--);
 
 CREATE TABLE IF NOT EXISTS Couple(
     her VARCHAR(255),

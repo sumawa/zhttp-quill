@@ -1,6 +1,7 @@
 val ZIOVersion = "1.0.13"
 //val QuillVersion = "3.5.0"
 val QuillVersion = "3.8.0"
+val zhttpVersion     = "1.0.0.0-RC19"
 
 lazy val root = project
   .in(file("."))
@@ -33,7 +34,8 @@ libraryDependencies ++= Seq(
   "com.h2database" % "h2" % "1.4.199",
   "com.typesafe"               %  "config"        % "1.4.1",
   "io.getquill" %% "quill-jdbc" % QuillVersion,
-  "io.getquill" %% "quill-jdbc-zio" % QuillVersion
+  "io.getquill" %% "quill-jdbc-zio" % QuillVersion,
+  "io.d11"                %% "zhttp"                          % zhttpVersion,
 )
 
 testFrameworks := Seq(new TestFramework("zio.test.sbt.ZTestFramework"))
