@@ -23,6 +23,7 @@ object ZHttpQuillMain extends App {
         i <- PersonDb.insert(Person(102, dyn, 27))
         persons <- PersonDb.getAll()
       } yield (Response.text(s"Persons: $persons"))
+      
     case Method.GET -> !! / "user" / name  =>
       for {
         persons <- PersonDb.byName(name)
@@ -41,7 +42,7 @@ object ZHttpQuillMain extends App {
     val env = ServerChannelFactory.auto ++
       EventLoopGroup.auto(nThreads) ++
       personBackendLayer
-    
+
     // Create a new server
     server.make
       .use(_ =>
