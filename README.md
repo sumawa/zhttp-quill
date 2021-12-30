@@ -1,6 +1,8 @@
 # ZIO-HTTP ZIO-QUILL Example 
 ###
-Implemented a very basic zio-http / zio-quill example
+* A very basic zio-http / zio-quill example
+* Demonstrates how to use a Db ZLayer implementing data access using zio-quill with zio-http
+* The example doesn't go deep into DB specific details (surrogate ids, constraints etc.) 
 
 #### Libraries used / Dependencies
 * zio version "1.0.13"
