@@ -22,6 +22,20 @@ Describe end points for
 * adding dynamic user to H2DB. http://localhost:8090/person
 * getting user(s) from H2DB.   http://localhost:8090/user/generateduuid
 
+#### Build and run 
+- The sample application is built in the form of assembly and executed with run script
+```
+sbt clean assembly
+./run_zhttp_quill.sh
+```
+- The server can be stopped running kill script
+```
+./kill_zhttp_quill.sh
+```
+- The output is generated in the app.log
+```
+tail app.log
+```
 #### Example curl commands for testing
 Inject dynamic UUID data by firing this endpoint
 ```
