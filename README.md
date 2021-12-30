@@ -37,12 +37,12 @@ sbt clean assembly
 tail app.log
 ```
 #### Example curl commands for testing
-Inject dynamic UUID data by firing this endpoint
+Inject dynamic UUID data by firing this POST endpoint 2 or more times (injecting new records)
 ```
-curl  http://localhost:8090/person
+curl  -X POST http://localhost:8090/person
 Persons: List(Person(102,f7743392-68d2-4acc-b941-c870c0571134,27))%                                                                       
 
-curl  http://localhost:8090/person
+curl  -X POST http://localhost:8090/person
 Persons: List(Person(102,f7743392-68d2-4acc-b941-c870c0571134,27), Person(102,fb594b9a-4e34-4a04-b013-2d9ad1fa47cf,27))
 ```
 Get specific user by name
