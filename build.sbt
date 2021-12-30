@@ -9,12 +9,6 @@ lazy val root = project
     name := "zhttp-quill",
     organization := "com.sa",
     scalaVersion := "2.12.11",
-//    scalaVersion := "2.13.1",
-//    initialCommands in Compile in console :=
-//      """|import zio._
-//         |import zio.Console._
-//         |implicit class RunSyntax[E, A](io: ZIO[ZEnv, E, A]){ def unsafeRun: A = Runtime.default.unsafeRun(io) }
-//    """.stripMargin
   )
 
 addCommandAlias("fmt", "all scalafmtSbt scalafmt test:scalafmt")
@@ -29,11 +23,9 @@ libraryDependencies ++= Seq(
   "dev.zio" %% "zio-streams"  % ZIOVersion,
   "dev.zio" %% "zio-test"     % ZIOVersion % "test",
   "dev.zio" %% "zio-test-sbt" % ZIOVersion % "test",
-  // quill
-//  "io.getquill" %% "quill-jdbc" % "3.12.1-SNAPSHOT"
+  // quill and h2 dependencies
   "com.h2database" % "h2" % "1.4.199",
   "com.typesafe"               %  "config"        % "1.4.1",
-  "io.getquill" %% "quill-jdbc" % QuillVersion,
   "io.getquill" %% "quill-jdbc-zio" % QuillVersion,
   "io.d11"                %% "zhttp"                          % zhttpVersion,
 )
