@@ -13,17 +13,17 @@ object ZHttpQuillMain extends App {
 
   val personBackendLayer = PersonDb.live
   private val app = Http.collectM[Request] {
-    case Method.GET -> !! / "person"    =>
-        for {
-          i <- PersonDb.insert(Person(102, "Alice", 27))
-          persons <- PersonDb.get()
-        } yield (Response.text(s"Persons: $persons"))
+    case Method.GET -> !! / "person" =>
+      for {
+        i <- PersonDb.insert(Person(102, "Alice", 27))
+        persons <- PersonDb.get()
+      } yield (Response.text(s"Persons: $persons"))
   }.provideCustomLayer(personBackendLayer)
 
   private val server =
-    Server.port(PORT) ++              // Setup port
+    Server.port(PORT) ++ // Setup port
       Server.paranoidLeakDetection ++ // Paranoid leak detection (affects performance)
-      Server.app(app)       // Setup the Http app
+      Server.app(app) // Setup the Http app
 
   override def run(args: List[String]): URIO[zio.ZEnv, ExitCode] = {
     // Configure thread count using CLI

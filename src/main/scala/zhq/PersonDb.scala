@@ -64,7 +64,4 @@ object PersonDb {
 
   def get(): ZIO[PersonDbEnv,Throwable,List[Person]] =
     ZIO.accessM(_.get.get())
-
-  def get1(): ZIO[zio.ZEnv, Throwable, List[Person]] = ???
-
 }
