@@ -1,6 +1,8 @@
 # ZIO-HTTP ZIO-QUILL Example 
 ###
-Implemented a very basic zio-http / zio-quill example
+* A very basic zio-http / zio-quill example
+* Demonstrates how to use a Db ZLayer implementing data access using zio-quill with zio-http
+* The example doesn't go deep into DB specific details (surrogate ids, constraints etc.) 
 
 #### Libraries used / Dependencies
 * zio version "1.0.13"
@@ -13,14 +15,14 @@ Implemented a very basic zio-http / zio-quill example
   - Shows how to set up a server and zio-http endpoints
   - Just run via IDE or sbt console
 * [PersonDb](https://github.com/sumawa/zhttp-quill/blob/master/src/main/scala/zhq/PersonDb.scala)
-  - Shows how to set up a ZIO Server layer 
+  - Shows how to set up a ZIO Service layer 
   - It can be dependency injected and used like shown in the Main.
 * [application.conf for H2DB setup](https://github.com/sumawa/zhttp-quill/blob/master/src/main/resources/application.conf)
 * [h2-schema.sql](https://github.com/sumawa/zhttp-quill/blob/master/src/main/resources/sql/h2-schema.sql)
 
 Describe end points for 
-* adding dynamic user to H2DB. http://localhost:8090/person
-* getting user(s) from H2DB.   http://localhost:8090/user/generateduuid
+* adding dynamic user to H2DB. POST http://localhost:8090/person
+* getting user(s) from H2DB.   GET  http://localhost:8090/user/generateduuid
 
 #### Build and run 
 - The sample application is built in the form of assembly and executed with run script
