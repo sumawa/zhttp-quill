@@ -23,7 +23,7 @@ object ZHttpQuillMain extends App {
         i <- PersonDb.insert(Person(102, dyn, 27))
         persons <- PersonDb.getAll()
       } yield (Response.text(s"Persons: $persons"))
-      
+
     case Method.GET -> !! / "user" / name  =>
       for {
         persons <- PersonDb.byName(name)
